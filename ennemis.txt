@@ -1,0 +1,4 @@
+Gobelin,5,2,0,10,7
+Orc,8,3,1,5,9
+Troll,10,5,3,2,10
+ChevalierNoir,8,10,4,7,10
