@@ -1,6 +1,6 @@
 using System;
 
-namespace Labo_TDZ_Final00
+namespace Labo_TDZ_Final00_Sol
 {
     class Acteur
     {
@@ -13,8 +13,9 @@ namespace Labo_TDZ_Final00
         public int Agilite { get; set; }
         public int Dommage { get; set; }
         public int TauxCritique { get; set; }
+        public string Description { get; set; }
 
-        public Acteur(string nom, int maxHp, int maxArmure, int regenArmure, int agilite, int dommage)
+        public Acteur(string nom, int maxHp, int maxArmure, int regenArmure, int agilite, int dommage, string description)
         {
             this.Nom = nom;
             this.MaxHp = maxHp;
@@ -25,6 +26,7 @@ namespace Labo_TDZ_Final00
             this.Agilite = agilite;
             this.Dommage = dommage;
             this.TauxCritique = 100 - Agilite / 2;
+            this.Description = description;
         }
 
         public void Attaquer(Acteur defenseur)
@@ -64,6 +66,11 @@ namespace Labo_TDZ_Final00
         public bool estVivant()
         {
             return !(this.Hp <= 0);
+        }
+
+        public void AfficherEtat()
+        {
+            Console.WriteLine($"{this.Nom}, Hp : {this.Hp}, Armure : {this.Armure}");
         }
     }
 }

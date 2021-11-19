@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Labo_TDZ_Final00
+namespace Labo_TDZ_Final00_Sol
 {
     class GenerateurClasse
     {
@@ -13,7 +13,7 @@ namespace Labo_TDZ_Final00
 
         public GenerateurClasse()
         {
-            Questions = new string[3];
+            Questions = new string[4];
             Classes = new Acteur[3];
             StreamReader lecteur = new StreamReader(@"questions.txt");
             int i = 0;
@@ -41,21 +41,20 @@ namespace Labo_TDZ_Final00
             int regenArmure = 0;
             int agilite = 0;
             int dommage = 0;
+            string description = classe[6];
+
             int.TryParse(classe[1], out maxHp);
             int.TryParse(classe[2], out maxArmure);
             int.TryParse(classe[3], out regenArmure);
             int.TryParse(classe[4], out agilite);
             int.TryParse(classe[5], out dommage);
-            Acteur acteur = new Acteur(classe[0], maxHp, maxArmure, regenArmure, agilite, dommage);
+            
+            Acteur acteur = new Acteur(classe[0], maxHp, maxArmure, regenArmure, agilite, dommage, description);
             return acteur;
         }
 
         public Acteur GenererClasse()
         {
-            string classeMagicien = "Tu es un maître de l'arcane et des éléments. Mais les années d'étude et de recherche ne t'ont pas laissé l'occasion de développer ton physique.";
-            string classeGuerrier = "Une brute sanguinaire ou un noble chevalier, à toi de décider. Tu es endurant, rapide et un maître des arts martiaux. Pas le crayon le plus aiguisé de la boîte par contre...";
-            string classeVoleur = "Tu es une racaille de la pire espèce, prêt à poignarder, mentir et voler pour une poignée de piécettes";
-
             int choix = 0;
             for (int i = 0; i < this.Questions.Length - 1; i++)
             {
@@ -74,26 +73,35 @@ namespace Labo_TDZ_Final00
                 }
             }
 
-            choix = 0;
+            choix = -1;
             if (this.Guerrier > this.Magicien && this.Guerrier > this.Voleur)
             {
-                choix = 1;
+                choix = 0;
             }
             if (this.Magicien > this.Guerrier && this.Magicien > this.Voleur)
             {
-                choix = 2;
+                choix = 1;
             }
             if (this.Voleur > this.Guerrier && this.Voleur > this.Magicien)
             {
-                choix = 3;
+                choix = 2;
             }
 
-            if (choix == 0)
+            if (choix < 0)
             {
-                choix = PoserQuestion(this.Questions[this.Questions.Length - 1]);
+                choix = PoserQuestion(this.Questions[this.Questions.Length - 1]) - 1;
             }
 
-            
+            Acteur acteur = new Acteur(this.Classes[choix].Nom, this.Classes[choix].MaxHp, this.Classes[choix].MaxArmure, this.Classes[choix].RegenArmure, this.Classes[choix].Agilite, this.Classes[choix].Dommage, this.Classes[choix].Description);
+            Console.WriteLine("Nommez votre personnage :");
+            acteur.Nom = Console.ReadLine();
+
+            Console.Clear();
+            Console.WriteLine($" {acteur.Nom} \n {this.Classes[choix].Nom} \n\n {acteur.Description} \n\n Hp : {acteur.Hp} \n Armure : {acteur.Armure} \n Régénération armure : {acteur.RegenArmure} \n Agilite : {acteur.Agilite} \n Dommage : {acteur.Dommage} \n");
+            Console.WriteLine("Appuyez sur une touche pour continuer.");
+            Console.ReadKey();
+
+            return acteur;
         }
 
         private int PoserQuestion(string question)
@@ -102,6 +110,7 @@ namespace Labo_TDZ_Final00
             bool invalide = true;
             while (invalide)
             {
+                Console.Clear();
                 Console.WriteLine(question);
                 invalide = !int.TryParse(Console.ReadLine(), out reponse);
 
@@ -113,6 +122,7 @@ namespace Labo_TDZ_Final00
                 if (invalide)
                 {
                     Console.WriteLine("La valeur saisie n'est pas valide. Choisir une des option de menu.");
+                    Console.ReadKey();
                 }
             }
 

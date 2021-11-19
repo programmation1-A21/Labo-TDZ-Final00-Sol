@@ -1,0 +1,7 @@
+#ignorer les dossiers générés par le build
+/.vscode/
+/bin/
+/obj/
+
+#ignorer le fichier de description du projet
+*.csproj
