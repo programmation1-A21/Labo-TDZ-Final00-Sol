@@ -6,11 +6,7 @@ namespace Labo_TDZ_Final00_Sol
     {
         static void Main(string[] args)
         {
-            GenerateurClasse generateurClasse = new GenerateurClasse();
-            Acteur joueur = generateurClasse.GenererClasse();
-            Console.Clear();
-            joueur.AfficherEtat();
-            Console.ReadKey();
+
         }
     }
 }

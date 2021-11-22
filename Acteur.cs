@@ -55,12 +55,20 @@ namespace Labo_TDZ_Final00_Sol
         public void Defendre(int dommage)
         {
             this.Armure -= dommage;
-            if(this.Armure < 0)
+            if (this.Armure < 0)
             {
                 this.Hp += this.Armure;
                 this.Armure = 0;
             }
-            this.Armure += this.RegenArmure;
+            if (this.Armure + this.RegenArmure > this.MaxArmure)
+            {
+                this.Armure = this.MaxArmure;
+            }
+            else
+            {
+                this.Armure += this.RegenArmure;
+            }
+
         }
 
         public bool estVivant()
